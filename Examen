@@ -180,6 +180,3 @@ Select * from productosTabla1 p full join tipoTabla2 t on p.numTipo = t.idTipo
         full join marcaTabla3 m on p.numMarca = m.idMarca where p.nombre like 'T%';
 
 -- FIN DE LOS JOINS-- 
-
-Diagrama de Venn de los Joins
-
