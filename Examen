@@ -72,23 +72,23 @@ FOR EACH ROW
 BEGIN 
 
     IF:new.numTipo = 1 THEN
-        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Comida');
+        INSERT INTO tipoTabla2 values (1, 'Comida');
     END IF;
     
     IF:new.numTipo = 2 THEN
-        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Dulces tipicos');
+        INSERT INTO tipoTabla2 values (2, 'Dulces tipicos');
     END IF;
     
     IF:new.numTipo = 3 THEN
-        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Pan');
+        INSERT INTO tipoTabla2 values (3, 'Pan');
     END IF;
     
     IF:new.numTipo = 4 THEN
-        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Dulces industrializados');
+        INSERT INTO tipoTabla2 values (4, 'Dulces industrializados');
     END IF;
     
     IF:new.numTipo  = 5 THEN
-        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Bebidas');
+        INSERT INTO tipoTabla2 values (5, 'Bebidas');
     END IF;
     
     IF:new.numTipo = 6 THEN
