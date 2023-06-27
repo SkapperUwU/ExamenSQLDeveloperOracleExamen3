@@ -8,6 +8,21 @@ numTipo NUMBER (5),
 numMarca NUMBER (5)
 );
 
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Sope', 25, 1, 1);
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Nachos', 25, 1, 1);
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Nachos con carne', 35, 1, 1);
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'AriZona', 20, 5, 4);
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Mazapan', 5, 2, 2);
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Donitas', 25, 3, 5);
+
+        --Productos que no venden en la escuela--
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Cigarros', 6, 6, 6);
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Cerveza', 28, 7, 7);
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Convertidor USB - Ethernet', 200, 8, 8);
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Docena de huevo', 40, 9, 9);
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Tablet', 2000, 10, 10);
+
+
         --TABLA 2--
 CREATE TABLE tipoTabla2(
 idTipo NUMBER (5),
