@@ -1,0 +1,185 @@
+-- CREACION DE LAS TABLAS E INSERCIONES --
+        --TABLA 1--
+CREATE TABLE productosTabla1(
+idProducto NUMBER (5),
+nombre VARCHAR (30),
+precio NUMBER (5),
+numTipo NUMBER (5),
+numMarca NUMBER (5)
+);
+
+        --TABLA 2--
+CREATE TABLE tipoTabla2(
+idTipo NUMBER (5),
+tipo VARCHAR (30)
+);
+
+        --TABLA 3--
+CREATE TABLE marcaTabla3(
+idMarca NUMBER (5),
+marca VARCHAR (30)
+);
+
+        --TABLA 4--
+CREATE TABLE extra(
+texto VARCHAR (100)
+);
+
+-- FIN DE LA CREACION DE LAS TABLAS
+
+-- CREACION DE LAS SECUENCIAS
+CREATE SEQUENCE seqIncrementoIdProducto
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 100
+MINVALUE 1;
+
+CREATE SEQUENCE seqIncrementoIdTipo
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 100
+MINVALUE 1;
+
+CREATE SEQUENCE seqIncrementoIdMarca
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 100
+MINVALUE 1;
+
+-- FIN DE LA CREACION DE LAS SECUENCIAS
+
+-- CREACION DE LOS TRIGGERS --
+
+--Llena tabla2--
+CREATE OR REPLACE TRIGGER trTabla2
+BEFORE INSERT ON productosTabla1
+FOR EACH ROW
+BEGIN 
+
+    IF:new.numTipo = 1 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Comida');
+    END IF;
+    
+    IF:new.numTipo = 2 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Dulces tipicos');
+    END IF;
+    
+    IF:new.numTipo = 3 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Pan');
+    END IF;
+    
+    IF:new.numTipo = 4 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Dulces industrializados');
+    END IF;
+    
+    IF:new.numTipo  = 5 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Bebidas');
+    END IF;
+    
+    IF:new.numTipo = 6 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Tabaco');
+    END IF;
+    
+    IF:new.numTipo = 7 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Bebidas alcoholicas');
+    END IF;
+    
+    IF:new.numTipo = 8 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Adaptadores');
+    END IF; 
+    
+    IF:new.numTipo = 9 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Despensas');
+    END IF;
+    
+    IF:new.numTipo = 10 THEN
+        INSERT INTO tipoTabla2 values (seqIncrementoIdTipo.nextval, 'Tecnologia');
+    END IF;
+END trTabla2;
+
+--Llena tabla 3--
+CREATE OR REPLACE TRIGGER trTabla3
+BEFORE INSERT ON productosTabla1
+FOR EACH ROW
+BEGIN 
+    IF:new.numMarca  = 1 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'Tesoem');
+    END IF;
+    
+    IF:new.numMarca = 2 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'De la rosa');
+    END IF;
+    
+    IF:new.numMarca = 3 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'Lucas Muecas');
+    END IF;
+    
+    IF:new.numMarca = 4 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'Jumex');
+    END IF;
+    
+    IF:new.numMarca  = 5 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'Bimbo');
+    END IF;
+    
+    IF:new.numMarca = 6 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'Malboro');
+    END IF;
+    
+    IF:new.numMarca = 7 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'Indio');
+    END IF;
+    
+    IF:new.numMarca = 8 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'TP Link');
+    END IF; 
+    
+    IF:new.numMarca = 9 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'Avicola GGL');
+    END IF;
+    
+    IF:new.numMarca = 10 THEN
+        INSERT INTO marcaTabla3 values (seqIncrementoIdMarca.nextval, 'Samsung');
+    END IF;
+END trTabla3;
+
+
+--Llena la tabla extra--
+CREATE OR REPLACE TRIGGER trMensajeExtra
+BEFORE INSERT ON productosTabla1
+FOR EACH ROW
+WHEN (new.nombre like 'T%')
+BEGIN 
+    insert into extra values ('Se inserto un producto con la vitamina T:');
+END trMensajeExtra;
+
+select * from extra;
+INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Te frio', 25, 5, 1);
+-- FIN DE LOS TRIGGERS
+
+-- INICIO DE LOS JOINS--
+    --FILL JOIN 3 TABLAS--
+Select p.nombre, p.precio, t.tipo, m.marca from productosTabla1 p full join tipoTabla2 t on p.numTipo = t.idTipo 
+        full join marcaTabla3 m on numMarca =idMarca;
+
+    --INNER JOIN TABLA 1 Y 3---
+select * from productosTabla1 p inner join marcaTabla3 m on m.marca = 'Tesoem' and p.nummarca = 1;
+
+    --LEFT JOIN SIN RELACION TABLA 1 Y 2--
+select * from productosTabla1 left join tipoTabla2 on numTipo = idTipo where idTipo is null or numTipo is null;
+
+    --RIGHT CON RELACION TABLA 1 Y 3-- 
+select * from productosTabla1 t RIGHT join tipoTabla2 t on numTipo = idTipo where numTipo is null or idTipo is null;
+
+    --FULL JOIN SIN RELACION 3 TABLAS--
+Select * from productosTabla1 p full join tipoTabla2 t on p.numTipo = t.idTipo 
+        full join marcaTabla3 m on p.numMarca = m.idMarca where numTipo is null or idTipo is null or numMarca is null;
+
+    -- JOIN DE LAS 3 TABLAS
+Select * from productosTabla1 p full join tipoTabla2 t on p.numTipo = t.idTipo 
+        full join marcaTabla3 m on p.numMarca = m.idMarca where p.nombre like 'T%';
+
+-- FIN DE LOS JOINS-- 
+
+Diagrama de Venn de los Joins
+
