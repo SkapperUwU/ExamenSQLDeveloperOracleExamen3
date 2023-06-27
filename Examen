@@ -195,3 +195,9 @@ Select * from productosTabla1 p full join tipoTabla2 t on p.numTipo = t.idTipo
         full join marcaTabla3 m on p.numMarca = m.idMarca where p.nombre like 'T%';
 
 -- FIN DE LOS JOINS-- 
+
+--CREACION DE LAS VISTA--
+Create or replace view vwDatos as
+Select p.nombre, p.precio, m.marca from productosTabla1 p full join marcaTabla3 m on numMarca =idMarca;
+        
+Select * from vwDatos;
