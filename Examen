@@ -1,4 +1,4 @@
--- CREACION DE LAS TABLAS E INSERCIONES --
+-- CREACION DE LAS TABLAS --
         --TABLA 1--
 CREATE TABLE productosTabla1(
 idProducto NUMBER (5),
@@ -7,21 +7,6 @@ precio NUMBER (5),
 numTipo NUMBER (5),
 numMarca NUMBER (5)
 );
-
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Sope', 25, 1, 1);
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Nachos', 25, 1, 1);
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Nachos con carne', 35, 1, 1);
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'AriZona', 20, 5, 4);
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Mazapan', 5, 2, 2);
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Donitas', 25, 3, 5);
-
-        --Productos que no venden en la escuela--
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Cigarros', 6, 6, 6);
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Cerveza', 28, 7, 7);
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Convertidor USB - Ethernet', 200, 8, 8);
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Docena de huevo', 40, 9, 9);
-INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Tablet', 2000, 10, 10);
-
 
         --TABLA 2--
 CREATE TABLE tipoTabla2(
@@ -39,7 +24,6 @@ marca VARCHAR (30)
 CREATE TABLE extra(
 texto VARCHAR (100)
 );
-
 -- FIN DE LA CREACION DE LAS TABLAS
 
 -- CREACION DE LAS SECUENCIAS
@@ -63,9 +47,10 @@ MINVALUE 1;
 
 -- FIN DE LA CREACION DE LAS SECUENCIAS
 
+
 -- CREACION DE LOS TRIGGERS --
 
---Llena tabla2 en automatico--
+        --Llena tabla2 en automatico--
 CREATE OR REPLACE TRIGGER trTabla2
 BEFORE INSERT ON productosTabla1
 FOR EACH ROW
@@ -112,7 +97,7 @@ BEGIN
     END IF;
 END trTabla2;
 
---Llena tabla 3 en automatico--
+        --Llena tabla 3 en automatico--
 CREATE OR REPLACE TRIGGER trTabla3
 BEFORE INSERT ON productosTabla1
 FOR EACH ROW
@@ -158,8 +143,7 @@ BEGIN
     END IF;
 END trTabla3;
 
-
---Llena la tabla extra--
+        --Llena la tabla extra--
 CREATE OR REPLACE TRIGGER trMensajeExtra
 BEFORE INSERT ON productosTabla1
 FOR EACH ROW
@@ -173,30 +157,32 @@ INSERT INTO productosTabla1 values (seqIncrementoIdProducto.nextval, 'Te frio', 
 -- FIN DE LOS TRIGGERS
 
 -- INICIO DE LOS JOINS--
-    --FILL JOIN 3 TABLAS--
+
+        --FULL JOIN 3 TABLAS--
 Select p.nombre, p.precio, t.tipo, m.marca from productosTabla1 p full join tipoTabla2 t on p.numTipo = t.idTipo 
         full join marcaTabla3 m on numMarca =idMarca;
 
-    --INNER JOIN TABLA 1 Y 3---
+        --INNER JOIN TABLA 1 Y 3---
 select * from productosTabla1 p inner join marcaTabla3 m on m.marca = 'Tesoem' and p.nummarca = 1;
 
-    --LEFT JOIN SIN RELACION TABLA 1 Y 2--
+        --LEFT JOIN SIN RELACION TABLA 1 Y 2--
 select * from productosTabla1 left join tipoTabla2 on numTipo = idTipo where idTipo is null or numTipo is null;
 
-    --RIGHT CON RELACION TABLA 1 Y 3-- 
+        --RIGHT CON RELACION TABLA 1 Y 3-- 
 select * from productosTabla1 t RIGHT join tipoTabla2 t on numTipo = idTipo where numTipo is null or idTipo is null;
 
-    --FULL JOIN SIN RELACION 3 TABLAS--
+        --FULL JOIN SIN RELACION 3 TABLAS--
 Select * from productosTabla1 p full join tipoTabla2 t on p.numTipo = t.idTipo 
         full join marcaTabla3 m on p.numMarca = m.idMarca where numTipo is null or idTipo is null or numMarca is null;
 
-    -- JOIN DE LAS 3 TABLAS
+        -- JOIN DE LAS 3 TABLAS
 Select * from productosTabla1 p full join tipoTabla2 t on p.numTipo = t.idTipo 
         full join marcaTabla3 m on p.numMarca = m.idMarca where p.nombre like 'T%';
 
 -- FIN DE LOS JOINS-- 
 
---CREACION DE LAS VISTA--
+--CREACION DE LA VISTA--
+
 Create or replace view vwDatos as
 Select p.nombre, p.precio, m.marca from productosTabla1 p full join marcaTabla3 m on numMarca =idMarca;
         
