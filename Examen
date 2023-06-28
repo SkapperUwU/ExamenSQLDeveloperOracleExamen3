@@ -65,7 +65,7 @@ MINVALUE 1;
 
 -- CREACION DE LOS TRIGGERS --
 
---Llena tabla2--
+--Llena tabla2 en automatico--
 CREATE OR REPLACE TRIGGER trTabla2
 BEFORE INSERT ON productosTabla1
 FOR EACH ROW
@@ -112,7 +112,7 @@ BEGIN
     END IF;
 END trTabla2;
 
---Llena tabla 3--
+--Llena tabla 3 en automatico--
 CREATE OR REPLACE TRIGGER trTabla3
 BEFORE INSERT ON productosTabla1
 FOR EACH ROW
@@ -201,3 +201,5 @@ Create or replace view vwDatos as
 Select p.nombre, p.precio, m.marca from productosTabla1 p full join marcaTabla3 m on numMarca =idMarca;
         
 Select * from vwDatos;
+
+-- FIN DE LAS VISTAS
